@@ -88,5 +88,17 @@ literate=%
         %     \includegraphics[width=13cm]{lab2/report/ex3_1.png}
         % \end{center}\\
     \section{Pomiar przepustowości w komunikacji pomiędzy węzłami klastra}
+        \subsection{Pomiary i wyniki}
+        W celu przeprowadzenia doświadczenia przygotowałem skrypt w języku Python, którego kod załączam poniżej. Program przesyła komunikaty pomiędzy dwoma procesami OpenMPI, predefiniowaną ilość razy, następnie liczy przepustowość połączenia. W celu pomiaru przepustowości wielokrotnie uruchomiłem program dla różnych rozmiarów wiadomości i różnych sposobów komunikacji - buforowanej i synchronicznej. \\
+        Zebrane wyniki pomiarów przedstawiłem w poniższych wykresach:
+        \begin{center}
+            \includegraphics[width=13cm]{report1/images/ex1_single_node.png}
+            \includegraphics[width=13cm]{report1/images/ex1_two_nodes.png}
+        \end{center}
+        W pierwszym przypadku komunikacja odbywała się pomiędzy dwoma procesami uruchamianymi na tym samym węźle klastra, w drugim pomiędzy procesami z różnych węzłów. Zaobserwować możemy, że w przypadku gdy procesy wykonują się na różnych węzłach komunikacja buforowana pozwala uzyskać stabilniejszą przepustowość dla wiadomości o sporym rozmiarze. W przypadku gdy komunikują się procesy z tego samego węzła, komunikacja synchroniczna pozwala na uzyskanie mniejszego narzutu czasowego. 
+
+        \subsection{Kod programu}
+        \lstinputlisting[language=python]{../ex1/ping_pong.py}
+
         
 \end{document}
