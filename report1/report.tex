@@ -95,10 +95,35 @@ literate=%
             \includegraphics[width=13cm]{report1/images/ex1_single_node.png}
             \includegraphics[width=13cm]{report1/images/ex1_two_nodes.png}
         \end{center}
-        W pierwszym przypadku komunikacja odbywała się pomiędzy dwoma procesami uruchamianymi na tym samym węźle klastra, w drugim pomiędzy procesami z różnych węzłów. Zaobserwować możemy, że w przypadku gdy procesy wykonują się na różnych węzłach komunikacja buforowana pozwala uzyskać stabilniejszą przepustowość dla wiadomości o sporym rozmiarze. W przypadku gdy komunikują się procesy z tego samego węzła, komunikacja synchroniczna pozwala na uzyskanie mniejszego narzutu czasowego. 
+        W pierwszym przypadku komunikacja odbywała się pomiędzy dwoma procesami uruchamianymi na tym samym węźle klastra, w drugim pomiędzy procesami z różnych węzłów. Zaobserwować możemy, że w przypadku gdy procesy wykonują się na różnych węzłach komunikacja buforowana pozwala uzyskać stabilniejszą przepustowość dla wiadomości o sporym rozmiarze. W przypadku gdy komunikują się procesy z tego samego węzła, komunikacja synchroniczna pozwala na uzyskanie mniejszego narzutu czasowego. \\
+        
+        Opóźnienie w przesyłaniu wiadomości, zmierzone jako przepustowość dla wiadomości o rozmiarze jednego bajta wyniosło odpowiednio:
+        \begin{center}
+            \begin{table}[ht]
+                \centering
+                \begin{tabular}{|c|c|c|}
+                    \hline
+                    Rodzaj komunikacji  & Typ wiadomości & Przepustowość [Mbit/s]\\
+                    \specialrule{1pt}{1pt}{1pt}
+                    Jeden węzeł & buforowana & 1.105\\
+                    Jeden węzeł & synchroniczna & 1.37 \\
+                    Różne węzły & buforowana & 0.1468\\
+                    Różne węzły & synchroniczna & 0.0407 \\
+                    \hline
+                \end{tabular}
+                \caption{Opóźnienie w przesłaniu wiadomości.}
+            \label{tab:my_label}
+            \end{table}
+        \end{center}
 
         \subsection{Kod programu}
         \lstinputlisting[language=python]{../ex1/ping_pong.py}
+    \newpage
+    \section{Przybliżenie liczby PI metodą Monte Carlo}
+        \subsection{Pomiary i wyniki}
+
+        \subsection{Kod programu}
+        \lstinputlisting[language=python]{../ex2/pi.py}
 
         
 \end{document}
