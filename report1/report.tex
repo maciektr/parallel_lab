@@ -90,7 +90,7 @@ literate=%
     \section{Pomiar przepustowości w komunikacji pomiędzy węzłami klastra}
         \subsection{Pomiary i wyniki}
         W celu przeprowadzenia doświadczenia przygotowałem skrypt w języku Python, którego kod załączam poniżej. Program przesyła komunikaty pomiędzy dwoma procesami OpenMPI, predefiniowaną ilość razy, następnie liczy przepustowość połączenia. W celu pomiaru przepustowości wielokrotnie uruchomiłem program dla różnych rozmiarów wiadomości i różnych sposobów komunikacji - buforowanej i synchronicznej. \\
-        Zebrane wyniki pomiarów przedstawiłem w poniższych wykresach:
+        Zebrane wyniki pomiarów przedstawiłem w poniższych wykresach.
         \begin{center}
             \includegraphics[width=13cm]{report1/images/ex1_single_node.png}
             \includegraphics[width=13cm]{report1/images/ex1_two_nodes.png}
@@ -120,9 +120,18 @@ literate=%
         \lstinputlisting[language=python]{../ex1/ping_pong.py}
     \newpage
     \section{Przybliżenie liczby PI metodą Monte Carlo}
-        \subsection{Pomiary dla klastra zwirtualizowanego}
+        W ramach eksperymentu przygotowałem skrypt obliczający przybliżenie liczby PI metodą Monte Carlo w sposób równoległy. 
+        \subsection{Zależność czasu od liczby procesorów}
+        Skrypt uruchomiłem dla problemów o rosnącej złożoności dla liczby procesorów z zakresu 1 do 12 i zmierzyłem czasy wykonania. Poniższe wykresy przedstawiają zmianę czasu wykonania programu w zależności od liczby procesów. Drugi z wykresów przedstawiony został w skali logarytmicznej.  
+        \begin{center}
+            \includegraphics[width=13cm]{report1/images/ex2_vcl_time.png}
+            \includegraphics[width=13cm]{report1/images/ex2_vcl_time_log.png}
+        \end{center}
         
-        \subsection{Pomiary dla środowiska Prometeusz}
+        \subsection{Przyśpieszenie}
+        \begin{center}
+            \includegraphics[width=13cm]{report1/images/ex2_vcl_speedup.png}
+        \end{center}
 
         \subsection{Kod programu}
         \lstinputlisting[language=python]{../ex2/pi.py}
