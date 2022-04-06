@@ -7,7 +7,7 @@ import random
 
 
 N_POINTS = int(argv[1])
-
+N_PROC = int(argv[2])
 
 def get_message():
    return os.urandom(MSG_SIZE)
@@ -44,6 +44,10 @@ if __name__ == '__main__':
     time=MPI.Wtime()
 
     node_res = node(comm)
+    
+    comm.Barrier()
+    time_calc=MPI.Wtime()-time
+    time = MPI.Wtime()
 
     global_sum = 0
     global_sum = comm.reduce(node_res, global_sum, op=MPI.SUM, root=ROOT_NODE)
@@ -52,6 +56,6 @@ if __name__ == '__main__':
     time=MPI.Wtime()-time
 
     if rank == ROOT_NODE:
-        print global_sum, ';', N_POINTS, ';', 4.0 * float(global_sum)/float(N_POINTS), ';', time 
+        print N_PROC, ';', global_sum, ';', N_POINTS, ';', 4.0 * float(global_sum)/float(N_POINTS), ';', time_calc, ';', time 
 
     MPI.Finalize()

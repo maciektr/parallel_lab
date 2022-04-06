@@ -1,0 +1,339 @@
+n 1
+502635520 ; 640000000 ; 3.141472 ; 469.123203278
+n 2
+502646470 ; 640000000 ; 3.1415404375 ; 246.143423319
+n 3
+502655627 ; 640000000 ; 3.14159766875 ; 168.800150633
+n 4
+502645858 ; 640000000 ; 3.1415366125 ; 118.103598595
+n 5
+502657447 ; 640000000 ; 3.14160904375 ; 144.733377218
+n 6
+502665652 ; 640000000 ; 3.141660325 ; 127.445995808
+n 7
+502646915 ; 640000000 ; 3.14154321875 ; 79.0234460831
+n 8
+502671711 ; 640000000 ; 3.14169819375 ; 62.5687737465
+n 9
+502646047 ; 640000000 ; 3.14153779375 ; 68.0612797737
+n 10
+502661654 ; 640000000 ; 3.1416353375 ; 74.7722909451
+n 11
+502654828 ; 640000000 ; 3.141592675 ; 75.0058250427
+n 12
+502641421 ; 640000000 ; 3.14150888125 ; 70.4408903122
+n 1
+1005307235 ; 1280000000 ; 3.14158510937 ; 933.678603172
+n 2
+1005324411 ; 1280000000 ; 3.14163878437 ; 464.003427505
+n 3
+1005302140 ; 1280000000 ; 3.1415691875 ; 314.156624556
+n 4
+1005298507 ; 1280000000 ; 3.14155783437 ; 239.252128363
+n 5
+1005308665 ; 1280000000 ; 3.14158957813 ; 288.234285355
+n 6
+1005335378 ; 1280000000 ; 3.14167305625 ; 166.545784712
+n 7
+1005330788 ; 1280000000 ; 3.1416587125 ; 141.09220171
+n 8
+1005329104 ; 1280000000 ; 3.14165345 ; 119.323280096
+n 9
+1005310519 ; 1280000000 ; 3.14159537187 ; 164.147547245
+n 10
+1005306539 ; 1280000000 ; 3.14158293438 ; 144.441759109
+n 11
+1005288732 ; 1280000000 ; 3.1415272875 ; 136.373329401
+n 12
+1005314566 ; 1280000000 ; 3.14160801875 ; 137.434068441
+n 1
+1005359459 ; 1280000000 ; 3.14174830938 ; 938.126153946
+n 2
+1005314459 ; 1280000000 ; 3.14160768437 ; 472.826263428
+n 3
+1005312562 ; 1280000000 ; 3.14160175625 ; 315.56781888
+n 4
+1005320892 ; 1280000000 ; 3.1416277875 ; 248.326254845
+n 5
+1005291398 ; 1280000000 ; 3.14153561875 ; 300.275533676
+n 6
+1005306192 ; 1280000000 ; 3.14158185 ; 285.125656843
+n 7
+1005298163 ; 1280000000 ; 3.14155675937 ; 229.084175348
+n 8
+1005304294 ; 1280000000 ; 3.14157591875 ; 196.265605688
+n 9
+1005296733 ; 1280000000 ; 3.14155229062 ; 175.45016861
+n 10
+1005324835 ; 1280000000 ; 3.14164010937 ; 167.639054775
+n 11
+1005310252 ; 1280000000 ; 3.1415945375 ; 150.815881491
+n 12
+1005315541 ; 1280000000 ; 3.14161106562 ; 136.115626335
+n 1
+n 2
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 3
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 4
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 5
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 6
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 7
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 8
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 9
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 10
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 11
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 12
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 1
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 2
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 3
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 4
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 5
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 6
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 7
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 8
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 9
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 10
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 11
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 12
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 1
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 2
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 3
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 4
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 5
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 6
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 7
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 8
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 9
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 10
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 11
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 12
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 1
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 2
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 3
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 4
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 5
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 6
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 7
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 8
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 9
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 10
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 11
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 12
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 1
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 2
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 3
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 4
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 5
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 6
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 7
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 8
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 9
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 10
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 11
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 12
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Sending Ctrl-C to processes as requested
+[mpiexec@vnode-01.dydaktyka.icsr.agh.edu.pl] Press Ctrl-C again to force abort
+n 1
+7839 ; 10000 ; 3.1356 ; 0.00734639167786
+n 2
+7802 ; 10000 ; 3.1208 ; 0.00389432907104
+n 3
+7854 ; 10000 ; 3.1416 ; 0.00270414352417
+n 4
+7855 ; 10000 ; 3.142 ; 0.00214505195618
+n 5
+7821 ; 10000 ; 3.1284 ; 0.00188946723938
+n 6
+7856 ; 10000 ; 3.1424 ; 0.00245380401611
+n 7
+7879 ; 10000 ; 3.1516 ; 0.00187397003174
+n 8
+7844 ; 10000 ; 3.1376 ; 0.00244760513306
+n 9
+7940 ; 10000 ; 3.176 ; 0.0019326210022
+n 10
+7869 ; 10000 ; 3.1476 ; 0.00219583511353
+n 11
+7805 ; 10000 ; 3.122 ; 0.00222945213318
+n 12
+7858 ; 10000 ; 3.1432 ; 0.0023078918457
+n 1
+785687 ; 1000000 ; 3.142748 ; 0.732993364334
+n 2
+785122 ; 1000000 ; 3.140488 ; 0.374148845673
+n 3
+785335 ; 1000000 ; 3.14134 ; 0.24337553978
+n 4
+785892 ; 1000000 ; 3.143568 ; 0.196013450623
+n 5
+785349 ; 1000000 ; 3.141396 ; 0.157355546951
+n 6
+785181 ; 1000000 ; 3.140724 ; 0.128686666489
+n 7
+784722 ; 1000000 ; 3.138888 ; 0.110699176788
+n 8
+786104 ; 1000000 ; 3.144416 ; 0.177465438843
+n 9
+785370 ; 1000000 ; 3.14148 ; 0.0876724720001
+n 10
+785263 ; 1000000 ; 3.141052 ; 0.0816466808319
+n 11
+785247 ; 1000000 ; 3.140988 ; 0.107977151871
+n 12
+785540 ; 1000000 ; 3.14216 ; 0.126160383224
+n 1
+78541328 ; 100000000 ; 3.14165312 ; 72.4011797905
+n 2
+78535500 ; 100000000 ; 3.14142 ; 38.9837934971
+n 3
+78538724 ; 100000000 ; 3.14154896 ; 24.6538562775
+n 4
+78534509 ; 100000000 ; 3.14138036 ; 19.3774673939
+n 5
+78536307 ; 100000000 ; 3.14145228 ; 15.5567245483
+n 6
+78536302 ; 100000000 ; 3.14145208 ; 12.8786373138
+n 7
+78538919 ; 100000000 ; 3.14155676 ; 11.2585566044
+n 8
+78542963 ; 100000000 ; 3.14171852 ; 14.227915287
+n 9
+78537458 ; 100000000 ; 3.14149832 ; 9.16686296463
+n 10
+78544648 ; 100000000 ; 3.14178592 ; 14.994276762
+n 11
+78536562 ; 100000000 ; 3.14146248 ; 13.407191515
+n 12
+78544202 ; 100000000 ; 3.14176808 ; 11.0516707897
+n 1
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 108172 RUNNING AT vnode-01.dydaktyka.icsr.agh.edu.pl
+=   EXIT CODE: 9
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Killed (signal 9)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+n 2
