@@ -87,15 +87,19 @@ literate=%
         % \begin{center}
         %     \includegraphics[width=13cm]{lab2/report/ex3_1.png}
         % \end{center}\\
-    \section{Pomiar przepustowości w komunikacji pomiędzy węzłami klastra}
+        
+    \section{Implementacja równoległego generowania losowych danych wejściowych}
+        \subsection{Definicja problemu}
+        W ramach zadania przygotowaliśmy implementację programu generującego równolegle losowe dane wejściowe dla algorytmu sortującego. Implementacja przygotowana została w języku C, za wykorzystaniem interfejsu \textit{OpenMP}. Kod implementacji dla poszczególnych wersji programu załączono w ostatniej sekcji sprawozdania. \\
+        Tak przygotowany program wykorzystaliśmy do pomiaru czasu wykonania i przyśpieszenia algorytmu, dla różnych ustawień klauzuli \textit{schedule}.
+    
         \subsection{Pomiary i wyniki}
-        W celu przeprowadzenia doświadczenia przygotowałem skrypt w języku Python, którego kod załączam poniżej. Program przesyła komunikaty pomiędzy dwoma procesami OpenMPI, predefiniowaną ilość razy, następnie liczy przepustowość połączenia. W celu pomiaru przepustowości wielokrotnie uruchomiłem program dla różnych rozmiarów wiadomości i różnych sposobów komunikacji - buforowanej i synchronicznej. \\
+        
         Zebrane wyniki pomiarów przedstawiłem w poniższych wykresach.
-        \begin{center}
-            \includegraphics[width=13cm]{report1/images/ex1_single_node.png}
-            \includegraphics[width=13cm]{report1/images/ex1_two_nodes.png}
-        \end{center}
-        W pierwszym przypadku komunikacja odbywała się pomiędzy dwoma procesami uruchamianymi na tym samym węźle klastra, w drugim pomiędzy procesami z różnych węzłów. Zaobserwować możemy, że w przypadku gdy procesy wykonują się na różnych węzłach komunikacja buforowana pozwala uzyskać stabilniejszą przepustowość dla wiadomości o sporym rozmiarze. W przypadku gdy komunikują się procesy z tego samego węzła, komunikacja synchroniczna pozwala na uzyskanie mniejszego narzutu czasowego. \\
+        % \begin{center}
+        %     \includegraphics[width=13cm]{report2/images/.png}
+        %     \includegraphics[width=13cm]{report1/images/.png}
+        % \end{center}
         
         Opóźnienie w przesyłaniu wiadomości, zmierzone jako przepustowość dla wiadomości o rozmiarze jednego bajta wyniosło odpowiednio:
         \begin{center}
@@ -115,43 +119,13 @@ literate=%
             \label{tab:my_label}
             \end{table}
         \end{center}
-
+        
+        \subsection{Wnioski}
+        
+        
+        \newpage
         \subsection{Kod programu}
-        \lstinputlisting[language=python]{../ex1/ping_pong.py}
-    \newpage
-    \section{Przybliżenie liczby PI metodą Monte Carlo}
-        W ramach eksperymentu przygotowałem skrypt obliczający przybliżenie liczby PI metodą Monte Carlo w sposób równoległy. 
-        \subsection{Zależność czasu od liczby procesorów}
-        Skrypt uruchomiłem dla problemów o rosnącej złożoności dla liczby procesorów z zakresu 1 do 12 i zmierzyłem czasy wykonania. Poniższe wykresy przedstawiają zmianę czasu wykonania programu w zależności od liczby procesów. Drugi z wykresów przedstawiony został w skali logarytmicznej.  
-        \begin{center}
-            \includegraphics[width=13cm]{report1/images/ex2_vcl_time.png}
-            \includegraphics[width=13cm]{report1/images/ex2_vcl_time_log.png}
-        \end{center}
-        
-        \subsection{Przyśpieszenie}
-        Na podstawie otrzymanych wcześniej pomiarów czasu wykonania programu, przygotowałem wykres przyśpieszenia w zależności od liczby procesorów dla problemów o różnym rozmiarze. Przyśpieszenie obliczyłem jako stosunek czasu wykonania programu bez współbieżności dla otrzymanych wyników dla wyższej liczby procesów. 
-        
-        \begin{center}
-            \includegraphics[width=13cm]{report1/images/ex2_vcl_speedup.png}
-        \end{center}
-        
-        Zauważyć możemy, że dla większości rozmiarów problemu wykres przyśpieszenia odbiega od teoretycznie idealnego liniowego wzrostu y=x. 
-        
-        \subsection{Efektywność}
-        Na podstawie otrzymanych w poprzednim kroku przyśpieszeń, obliczyłem wykres efektywności jako stosunek przyśpieszenia do ilości procesów. 
-        \begin{center}
-            \includegraphics[width=13cm]{report1/images/ex2_efficiency.png}
-        \end{center}
-        Wbrew oczekiwaniom, zaobserwować możemy spadek wydajności nawet dla problemów o znaczącym rozmiarze. 
-        
-        \subsection{Pomiar czasu wykonania części synchronicznej}
-        Wykonałem także pomiar części synchronicznej programu - odpowiedzialnej za zbieranie wyników obliczeń. Wyniki przedstawiłem na poniższym wykresie. 
-        \begin{center}
-            \includegraphics[width=13cm]{report1/images/ex2_vcl_time_sync.png}
-        \end{center}
-        Zauważyć możemy, że czas poświęcony na zbieranie wyników w ogólności nie rośnie wraz ze wzrostem rozmiaru problemu obliczeniowego. Wynika to z faktu, że zbieranym wynikiem jest jedynie liczba punktów wylosowanych wewnątrz koła, dlatego ilość danych nie rośnie wraz ze wzrostem problemu. 
-
-        \subsection{Kod programu}
-        \lstinputlisting[language=python]{../ex2/pi.py}
-        \lstinputlisting[language=python]{../ex2/script.sh}
+        \lstinputlisting[language=c]{../ex3/schedule_static.c}
+        \lstinputlisting[language=c]{../ex3/schedule_dynamic.c}
+        \lstinputlisting[language=c]{../ex3/schedule_guided.c}
 \end{document}
