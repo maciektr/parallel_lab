@@ -5,7 +5,7 @@
 #include <time.h>
 #include <limits.h>
 
-#define WRITE_FILE_IN true
+// #define WRITE_FILE_IN true
 // #define WRITE_FILE_OUT true
 const int initial_bucket_size_mul = 2;
 
@@ -20,7 +20,7 @@ VAL *rewrite_bucket(VAL *bucket, int current_size, int new_size) {
     VAL *new_bucket = calloc(new_size, sizeof(VAL));
     memcpy(new_bucket, bucket, current_size * sizeof(*bucket));
     free(bucket);
-    bucket_rewrites_count++;
+    // bucket_rewrites_count++;
     return new_bucket;
 }
 
@@ -188,6 +188,7 @@ void measure(int array_size, int nt) {
   create_buckets(&buckets_store, array_size, buckets_num);
 
   // Write random values to array
+  double time_start = omp_get_wtime();
   double time_random_gen = omp_get_wtime();
   random_array(array, array_size, nt);
   time_random_gen = omp_get_wtime() - time_random_gen;
@@ -224,7 +225,7 @@ void measure(int array_size, int nt) {
   double time_write_to_array = omp_get_wtime();
   put_to_array(array, &buckets_store, nt);
   time_write_to_array = omp_get_wtime()- time_write_to_array;
-
+  double time_end = omp_get_wtime();
   // Write resulting array to file
   #if (defined(WRITE_FILE_OUT) && WRITE_FILE_OUT == true)
   fprintf(file, "\nafter\n");
@@ -238,7 +239,8 @@ void measure(int array_size, int nt) {
   // Check if array is sorted
   check_order(array, array_size);
 
-  printf("%d; %f; %f; %f; %f; %f; %d\n",array_size, time_random_gen, time_put_to_buckets, time_sort_buckets, time_bucket_offsets, time_write_to_array, bucket_rewrites_count );
+  // printf("%d, %f, %f, %f, %f, %f, %d, %f\n",array_size, time_random_gen, time_put_to_buckets, time_sort_buckets, time_bucket_offsets, time_write_to_array, bucket_rewrites_count, time_end - time_start  );
+  printf("%d,%d,%f,%f,%f,%f,%f,%f\n",nt, array_size, time_random_gen, time_put_to_buckets, time_sort_buckets, time_bucket_offsets, time_write_to_array, time_end - time_start  );
   bucket_rewrites_count = 0;
 
   // Free memory
@@ -247,12 +249,33 @@ void measure(int array_size, int nt) {
 } 
 
 int main(int argc, char **argv) {
-  // printf("nt; random_gen; put_to_buckets; sort_buckets; bucket_offsets; write_to_array; rewrite_count\n");
-  const int max_thread_count = 8;
+  printf("threads,array_size,random_gen,put_to_buckets,sort_buckets,bucket_offsets,write_to_array,all\n");
+  // printf("threads, random_gen, put_to_buckets, sort_buckets, bucket_offsets, write_to_array, rewrite_count, all\n");
+  // for (int n = 0; n<10 ; n++)
+  // for(int thread_count = 1; thread_count <= max_thread_count; thread_count++)
+  //   for(int array_size = 100000000; array_size <= 1000000000; array_size*=10) 
+  //     measure(array_size, thread_count);
 
-  for(int thread_count = 8; thread_count <= max_thread_count; thread_count++)
-    for(int array_size = 100000000; array_size <= 1000000000; array_size*=10) 
-      measure(array_size, thread_count);
+
+    const int repeat = 5;
+
+    const int min_thread_count = 1;
+    const int max_thread_count = 10;
+    const int max_array_size = 1000000000;
+    const int min_array_size = 1000;
+    const int array_size_step = 10;
+
+    // const int min_thread_count = 10;
+    // const int max_thread_count = 10;
+    // const int min_array_size = 1000000000;
+    // const int max_array_size = 1000000000;
+    // const int array_size_step = 10;
+
+
+    for (int n = 0; n<repeat ; n++)
+        for(int thread_count = min_thread_count; thread_count <= max_thread_count; thread_count++)
+            for(int array_size = min_array_size; array_size <= max_array_size; array_size*=array_size_step) 
+              measure(array_size, thread_count);
 
   return 0;
 }

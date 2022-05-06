@@ -227,12 +227,11 @@ int run(int array_size, int threads) {
 int main() {
     int res =0;
 
-    const int repeat = 1;
+    const int repeat = 4;
     const int max_thread_count = 10;
     const int max_array_size = 1000000000;
-    // const int max_array_size = 1000000;
     const int min_array_size = 1000;
-    const int array_size_step = 100;
+    const int array_size_step = 10;
 
     // file = fopen("results_samuel.csv", "a+");
     // fprintf(file, "thread_count, array_size, random_gen, put_to_buckets, write_to_array, all\n");
