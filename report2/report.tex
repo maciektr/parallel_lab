@@ -94,36 +94,121 @@ literate=%
         Tak przygotowany program wykorzystaliśmy do pomiaru czasu wykonania i przyśpieszenia algorytmu, dla różnych ustawień klauzuli \textit{schedule}.
     
         \subsection{Pomiary i wyniki}
+        Każdy z pomiarów powtórzyliśmy dziesięciokrotnie dla danych ustawień parametrów programu. Program testowaliśmy dla ustawień klauzuli \textit{schedule} ze zbioru \textit{guided}, \textit{dynamic} i \textit{static}, oraz wartości parametru \textit{chunk} z zakresu opisanego w tabeli poniżej.  
         
-        Zebrane wyniki pomiarów przedstawiłem w poniższych wykresach.
-        % \begin{center}
-        %     \includegraphics[width=13cm]{report2/images/.png}
-        %     \includegraphics[width=13cm]{report1/images/.png}
-        % \end{center}
-        
-        Opóźnienie w przesyłaniu wiadomości, zmierzone jako przepustowość dla wiadomości o rozmiarze jednego bajta wyniosło odpowiednio:
         \begin{center}
             \begin{table}[ht]
                 \centering
                 \begin{tabular}{|c|c|c|}
                     \hline
-                    Rodzaj komunikacji  & Typ wiadomości & Przepustowość [Mbit/s]\\
+                    Schedule  & Chunk\\
                     \specialrule{1pt}{1pt}{1pt}
-                    Jeden węzeł & buforowana & 1.105\\
-                    Jeden węzeł & synchroniczna & 1.37 \\
-                    Różne węzły & buforowana & 0.1468\\
-                    Różne węzły & synchroniczna & 0.0407 \\
+                    Dynamic & 1 \\
+                    Dynamic & 1000\\
+                    Dynamic & Rozmiar Problemu / Ilość CPU \\
+                    Guided & 1\\
+                    Static & Rozmiar Problemu / Ilość CPU \\
                     \hline
                 \end{tabular}
-                \caption{Opóźnienie w przesłaniu wiadomości.}
+                \caption{Parametry programu wykorzystane do przygotowania pomiarów.}
             \label{tab:my_label}
             \end{table}
         \end{center}
-        
-        \subsection{Wnioski}
-        
+        Program uruchamialiśmy dla problemów o rozmiarze $10^6$, $10^7$ i $10^8$. Zebrane wyniki pomiarów czasu wykonania programu przedstawione zostały na poniższych wykresach.
         
         \newpage
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/Type/ex3_dynamic_mean.png}
+            \includegraphics[width=17cm]{report2/images/Type/ex3_dynamic_mean_log.png}
+            \caption{Pomiar czasu wykonania programu, Dynamic schedule, w zależności od parametrów. Uśrednione wartości z powtórzeń pomiarów. }
+        \end{figure}
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/Type/ex3_dynamic_all.png}
+            \includegraphics[width=17cm]{report2/images/Type/ex3_dynamic_all_log.png}
+            \caption{Pomiar czasu wykonania programu, Dynamic schedule. Wszystkie pomiary. }
+        \end{figure}
+        \newpage
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/Type/ex3_guided_mean.png}
+            \includegraphics[width=17cm]{report2/images/Type/ex3_guided_mean_log.png}
+            \caption{Pomiar czasu wykonania programu, guided schedule, w zależności od parametrów. Uśrednione wartości z powtórzeń pomiarów. }
+        \end{figure}
+        \newpage
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/Type/ex3_guided_all.png}
+            \includegraphics[width=17cm]{report2/images/Type/ex3_guided_all_log.png}
+            \caption{Pomiar czasu wykonania programu, guided schedule. Wszystkie pomiary. }
+        \end{figure}
+        \newpage
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/Type/ex3_static_mean.png}
+            \includegraphics[width=17cm]{report2/images/Type/ex3_static_mean_log.png}
+            \caption{Pomiar czasu wykonania programu, static schedule, w zależności od parametrów. Uśrednione wartości z powtórzeń pomiarów. }
+        \end{figure}
+        \newpage
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/Type/ex3_static_all.png}
+            \includegraphics[width=17cm]{report2/images/Type/ex3_static_all_log.png}
+            \caption{Pomiar czasu wykonania programu, static schedule. Wszystkie pomiary. }
+        \end{figure}
+        \newpage
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/TableSize/ex3_tb6_mean.png}
+            \includegraphics[width=17cm]{report2/images/TableSize/ex3_tb6_mean_log.png}
+            \caption{Pomiar czasu wykonania programu, dla problemu rozmiaru 10 ** 6, w zależności od parametrów. Uśrednione wartości z powtórzeń pomiarów. }
+        \end{figure}
+        \newpage
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/TableSize/ex3_tb7_mean.png}
+            \includegraphics[width=17cm]{report2/images/TableSize/ex3_tb7_mean_log.png}
+            \caption{Pomiar czasu wykonania programu, dla problemu rozmiaru 10 ** 7, w zależności od parametrów. Uśrednione wartości z powtórzeń pomiarów. }
+        \end{figure}
+        \newpage
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/TableSize/ex3_tb8_mean.png}
+            \includegraphics[width=17cm]{report2/images/TableSize/ex3_tb8_mean_log.png}
+            \caption{Pomiar czasu wykonania programu, dla problemu rozmiaru 10 ** 8, w zależności od parametrów. Uśrednione wartości z powtórzeń pomiarów. }
+        \end{figure}
+        \newpage
+
+
+        Na podstawie zmierzonych czasów pracy przygotowaliśmy także wykresy przyśpieszenia programu.
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/TableSize/ex3_tb6_speedup.png}
+            \includegraphics[width=17cm]{report2/images/TableSize/ex3_tb6_speedup_all.png}
+            \caption{Pomiar przyśpieszenia czasu wykonania programu, dla problemu rozmiaru 10 ** 6, w zależności od parametrów. Uśrednione wartości z powtórzeń pomiarów. }
+        \end{figure}
+        \newpage
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/TableSize/ex3_tb7_speedup.png}
+            \includegraphics[width=17cm]{report2/images/TableSize/ex3_tb7_speedup_all.png}
+            \caption{Pomiar przyśpieszenia czasu wykonania programu, dla problemu rozmiaru 10 ** 7, w zależności od parametrów. Uśrednione wartości z powtórzeń pomiarów. }
+        \end{figure}
+        \newpage
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/TableSize/ex3_tb8_speedup.png}
+            \includegraphics[width=17cm]{report2/images/TableSize/ex3_tb8_speedup_all.png}
+            \caption{Pomiar przyśpieszenia czasu wykonania programu, dla problemu rozmiaru 10 ** 8, w zależności od parametrów. Uśrednione wartości z powtórzeń pomiarów. }
+        \end{figure}
+
+
+        \newpage
+        \subsection{Wnioski}
+        Analizując otrzymane wyniki pomiarów, zauważyć możemy że każda z typów klauzuli \textit{schedule} pozwoliła na uzyskanie zadowalających i porównywalnych przyśpieszeń, pod warunkiem wybrania odpowiedniej wartości parametru \textit{chunk}. W szczególności, klauzula \textit{guided} odpowiednio radzi sobie z jego dobraniem. Zauważyć możemy znaczny spadek wydajności, w przypadku wybrania zbyt małej wartości tego parametru dla wersji \textit{dynamic}, skutkującego nawet obniżeniem wydajności programu pomimo większej liczby dostępnych procesorów. 
+        
+        % \newpage
         \subsection{Kod programu}
         \lstinputlisting[language=c]{../ex3/schedule_static.c}
         \lstinputlisting[language=c]{../ex3/schedule_dynamic.c}
