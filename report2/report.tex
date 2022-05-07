@@ -49,8 +49,8 @@ literate=%
  {Ł}{{\l{}}}1
 }
 
-\title{Metody Programowania Równoległego\\ Raport II - Pętla for}
-\author{Samuel Hełdak, Maciej Trątnowiecki}
+\title{Metody Programowania Równoległego\\ Raport II - OpenMP}
+\author{Maciej Trątnowiecki}
 \date{AGH, Semestr Letni, 2022}
 
 \begin{document}
@@ -205,6 +205,17 @@ literate=%
 
 
         \newpage
+        \subsection{Badanie rozkładu uzyskiwanych liczb pseudolosowych}
+        \textbf{Badanie poprawności danych wejściowych wobec założeń sortowania kubełkowego.}\\
+        W celu zbadania rozkładu otrzymywanych z generatora liczb pseudolosowych przygotowany został duży zbiór liczb zwracanych przez generator, o rozmiarze $100 000 000$. Uzyskane liczby zostały przedstawione na histogramie grupującym obserwacje w $100$ kubełkach.
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/RandomGen/random_dist_histo_100000000.png}
+            \caption{Histogram przedstawiający rozkład uzyskiwanych z generatora liczb pseudolosowych. }
+        \end{figure}
+        
+        Na podstawie histogramu wnioskować możemy, że otrzymywany rozkład z generatora jest równomierny. Tak przygotowany generator dobrze sprawdzi się podczas testowania algorytmów sortujących.
+
         \subsection{Wnioski}
         Analizując otrzymane wyniki pomiarów, zauważyć możemy że każda z typów klauzuli \textit{schedule} pozwoliła na uzyskanie zadowalających i porównywalnych przyśpieszeń, pod warunkiem wybrania odpowiedniej wartości parametru \textit{chunk}. W szczególności, klauzula \textit{guided} odpowiednio radzi sobie z jego dobraniem. Zauważyć możemy znaczny spadek wydajności, w przypadku wybrania zbyt małej wartości tego parametru dla wersji \textit{dynamic}, skutkującego nawet obniżeniem wydajności programu pomimo większej liczby dostępnych procesorów. 
         
@@ -213,4 +224,26 @@ literate=%
         \lstinputlisting[language=c]{../ex3/schedule_static.c}
         \lstinputlisting[language=c]{../ex3/schedule_dynamic.c}
         \lstinputlisting[language=c]{../ex3/schedule_guided.c}
+        
+    \newpage 
+    \section{Implementacja równoległego algorytmu sortowania kubełkowego}
+    \subsection{Wstęp}
+    W ramach ćwiczeń laboratoryjnych przygotowaliśmy wraz z kolegą z grupy implementację algorytmu sortowania kubełkowego w sposób równoległy dla tego samego sposobu generowania liczb pseudolosowych i struktury danych przechowujących kubełki na dwa różne sposoby. W implementacji kolegi każdy z wątków czytał całą tablicę wejściową i rozdzielał liczby do przypisanych do niego kubełków. W mojej implementacji, każdy z wątków czytał jedynie fragment tablicy i rozdzielał liczby do odpowiedniego kubełka (z synchronizacją na dostępie do kubełka, dostęp do tablicy nie musi być synchronizowany). Na potrzeby sprawozdania będę nazywał te implementacje odpowiednio wersją pierwszą i druga algorytmu. \\
+    
+    Testy i pomiary czasowe wykonania algorytmu wykonane zostały na procesorze \textit{Apple M1 Max} wykonanym w architekturze \textit{ARM} o $10$ rdzeniach roboczych, przy czym wskazać należy że procesor posiada $8$ rdzeni wysokiej wydajności i $2$ rdzenie energooszczędne co może zaburzać obserwowane wyniki przyśpieszenia.  
+        
+    \subsection{Struktura danych}
+    W obu algorytmach do przechowywania kubełków wykorzystaliśmy dynamiczne tablice. Początkowo każda z tablic miała rozmiar równy podwojonej liczbie elementów tablicy podzielonej przez ilość kubełków. W przypadku gdy dodanie kolejnej wartości do tablicy spowodowałoby przekroczenie zaalokowanego rozmiaru tablicy, tworzony była tablica o dwukrotnie większym rozmiarze do której przepisywana była zawartość obecnego kubełka. \\
+    
+    W celu analizy jak duży koszt obliczeniowy dla algorytmu stanowi przepisywanie kubełków (co jest kosztowne obliczeniowo zarówno przez konieczność przekopiowania starej tablicy do nowej, jak i alokacji pamięci), zliczyliśmy ilość przepisań. Dla tablicy o rozmiarze $1000 000 000$, ilość przepisań podczas sortowania wyniosła $542 997$, czyli około $\frac{5}{10000}$ rozmiaru tablicy, co jest wartością pomijalną wobec złożoności obliczeniowej całego problemu.
+    
+    \subsection{Badanie zachowania algorytmu dla sortowania sekwencyjnego}
+    
+    \subsection{Badanie przyśpieszenia algorytmu}
+    
+    \subsection{Porównanie implementacji}
+    
+    \subsection{Wnioski}
+    
+    
 \end{document}
