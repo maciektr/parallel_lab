@@ -49,8 +49,8 @@ literate=%
  {Ł}{{\l{}}}1
 }
 
-\title{Metody Programowania Równoległego\\ Raport II - Pętla for}
-\author{Samuel Hełdak, Maciej Trątnowiecki}
+\title{Metody Programowania Równoległego\\ Raport II - OpenMP}
+\author{Maciej Trątnowiecki}
 \date{AGH, Semestr Letni, 2022}
 
 \begin{document}
@@ -205,6 +205,17 @@ literate=%
 
 
         \newpage
+        \subsection{Badanie rozkładu uzyskiwanych liczb pseudolosowych}
+        \textbf{Badanie poprawności danych wejściowych wobec założeń sortowania kubełkowego.}\\
+        W celu zbadania rozkładu otrzymywanych z generatora liczb pseudolosowych przygotowany został duży zbiór liczb zwracanych przez generator, o rozmiarze $100 000 000$. Uzyskane liczby zostały przedstawione na histogramie grupującym obserwacje w $100$ kubełkach.
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/RandomGen/random_dist_histo_100000000.png}
+            \caption{Histogram przedstawiający rozkład uzyskiwanych z generatora liczb pseudolosowych. }
+        \end{figure}
+        
+        Na podstawie histogramu wnioskować możemy, że otrzymywany rozkład z generatora jest równomierny. Tak przygotowany generator dobrze sprawdzi się podczas testowania algorytmów sortujących.
+
         \subsection{Wnioski}
         Analizując otrzymane wyniki pomiarów, zauważyć możemy że każda z typów klauzuli \textit{schedule} pozwoliła na uzyskanie zadowalających i porównywalnych przyśpieszeń, pod warunkiem wybrania odpowiedniej wartości parametru \textit{chunk}. W szczególności, klauzula \textit{guided} odpowiednio radzi sobie z jego dobraniem. Zauważyć możemy znaczny spadek wydajności, w przypadku wybrania zbyt małej wartości tego parametru dla wersji \textit{dynamic}, skutkującego nawet obniżeniem wydajności programu pomimo większej liczby dostępnych procesorów. 
         
@@ -213,4 +224,114 @@ literate=%
         \lstinputlisting[language=c]{../ex3/schedule_static.c}
         \lstinputlisting[language=c]{../ex3/schedule_dynamic.c}
         \lstinputlisting[language=c]{../ex3/schedule_guided.c}
+        
+    \newpage 
+    
+    \section{Implementacja równoległego algorytmu sortowania kubełkowego}
+    \subsection{Wstęp}
+    W ramach ćwiczeń laboratoryjnych przygotowaliśmy wraz z kolegą z grupy implementację algorytmu sortowania kubełkowego w sposób równoległy dla tego samego sposobu generowania liczb pseudolosowych i struktury danych przechowujących kubełki na dwa różne sposoby. W implementacji kolegi każdy z wątków czytał całą tablicę wejściową i rozdzielał liczby do przypisanych do niego kubełków. W mojej implementacji, każdy z wątków czytał jedynie fragment tablicy i rozdzielał liczby do odpowiedniego kubełka (z synchronizacją na dostępie do kubełka, dostęp do tablicy nie musi być synchronizowany). Na potrzeby sprawozdania będę nazywał te implementacje odpowiednio wersją pierwszą i druga algorytmu. \\
+    
+    Testy i pomiary czasowe wykonania algorytmu wykonane zostały na procesorze \textit{Apple M1 Max} (chyba że wskazano inaczej) wykonanym w architekturze \textit{ARM} o $10$ rdzeniach roboczych, przy czym wskazać należy że procesor posiada $8$ rdzeni wysokiej wydajności i $2$ rdzenie energooszczędne co może zaburzać obserwowane wyniki przyśpieszenia.  \\
+    Każdy z pomiarów wykonany został dziesięciokrotnie, a wyniki uśrednione. 
+        
+    \subsection{Struktura danych}
+    W obu algorytmach do przechowywania kubełków wykorzystaliśmy dynamiczne tablice. Początkowo każda z tablic miała rozmiar równy podwojonej liczbie elementów tablicy podzielonej przez ilość kubełków. W przypadku gdy dodanie kolejnej wartości do tablicy spowodowałoby przekroczenie zaalokowanego rozmiaru tablicy, tworzony była tablica o dwukrotnie większym rozmiarze do której przepisywana była zawartość obecnego kubełka. \\
+    
+    W celu analizy jak duży koszt obliczeniowy dla algorytmu stanowi przepisywanie kubełków (co jest kosztowne obliczeniowo zarówno przez konieczność przekopiowania starej tablicy do nowej, jak i alokacji pamięci), zliczyliśmy ilość przepisań. Dla tablicy o rozmiarze $1000 000 000$, ilość przepisań podczas sortowania wyniosła $542 997$, czyli około $\frac{5}{10000}$ rozmiaru tablicy, co jest wartością pomijalną wobec złożoności obliczeniowej całego problemu.
+    
+    \subsection{Badanie zachowania algorytmu dla sortowania sekwencyjnego}
+    Badając zależność czasu sekwencyjnego wykonania algorytmu w zależności od rozmiaru tablicy na wejściu zauważyć możemy, że w przypadku obu algorytmów najwięcej czasu zajmuje wstawianie elementów tablicy do odpowiednik kubełków. Jest to efekt oczekiwany, jako ze to właśnie na tym etapie odbywa się sortowanie tablicy. Wszystkie składowe algorytmu rosną tak samo, wraz ze wzrostem rozmiaru wejścia. 
+        \newpage
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/Sequential/sam_time.png}
+            \includegraphics[width=17cm]{report2/images/Sequential/sam_time_log.png}
+            \caption{Pomiar czasu wykonania programu, w wersji pierwszej, wykonywanego sekwencyjnie, w zależności od rozmiaru tablicy (od ${10^{3}}$ do ${10^{9}}$). }
+        \end{figure}
+
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/Sequential/time.png}
+            \includegraphics[width=17cm]{report2/images/Sequential/time_log.png}
+            \caption{Pomiar czasu wykonania programu, w wersji drugiej, wykonywanego sekwencyjnie, w zależności od rozmiaru tablicy (od ${10^{3}}$ do ${10^{9}}$). }
+        \end{figure}\\
+    
+    \FloatBarrier
+    % \newline
+    % \newpage
+    
+    \subsection{Badanie przyśpieszenia algorytmu}
+        Analizując zmianę czasu wykonania programu w zależności od ilości rdzeni na których zrównoleglany był algorytm, zauważyć możemy że czas wykonania algorytmu w wersji pierwszej spada jednostajnie według oczekiwanej krzywej. W wersji drugiej, czas  wykonania zmienia się skokowo w nieoczekiwany sposób. Jest to zaskakujący wynik, którego nie oczekiwałem, dlatego uruchomiłem program w tej wersji także na komputerze wyposażonym w procesor \textit{Intel i7-8550u} z czterema rdzeniami roboczymi i ośmioma wątkami. W tym przypadku otrzymałem wyniki dużo bardziej zbliżone do oczekiwanych (z jedynym załamaniem wynikającym z hyperthreadingu), dlatego zaburzenia uznaję za spowodowane specyficzną architekturą procesora z którego początkowo korzystałem (architektura \textit{ARM}, rdzenie o różnej wydajności). 
+        % \begin{figure}[h!]
+        %     \centering
+        %     \caption{Pomiar czasu wykonania programu, w wersji pierwszej, w zależności od ilości rdzeni, dla tablicy ${10^{9}}$. }
+        % \end{figure}
+        
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/Speedup/sam_time.png}
+            \includegraphics[width=17cm]{report2/images/Speedup/sam_time_log.png}
+            \caption{Pomiar czasu wykonania programu, w wersji pierwszej, w zależności od ilości rdzeni, dla tablicy ${10^{9}}$. }
+        \end{figure}
+
+        \newpage
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/Speedup/time.png}
+            \includegraphics[width=17cm]{report2/images/Speedup/time_log.png}
+            \caption{Pomiar czasu wykonania programu, w wersji drugiej, w zależności od ilości rdzeni, dla tablicy ${10^{9}}$. }
+        \end{figure}
+        
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/Speedup/time_i7.png}
+            \includegraphics[width=17cm]{report2/images/Speedup/time_log_i7.png}
+            \caption{Pomiar czasu wykonania programu, w wersji drugiej, w zależności od ilości rdzeni, dla tablicy ${10^{9}}$, uruchamianego na procesorze \textit{Intel i7}. }
+        \end{figure}
+    \FloatBarrier
+
+        \newpage
+        % Speedup
+        Następnie przygotowałem pomiary przyśpieszenia algorytmu. We wszystkich przypadkach program przyśpieszał znacząco wraz ze wzrostem ilości rdzeni. W przypadku wersji pierwszej, ponownie wykres najbardziej przypominał oczekiwany. W przypadku wersji drugiej uruchomionej na procesorze \textit{i7} zauważyć możemy załamanie wynikające z \textit{hyperthreadingu} po wzroście powyżej czterech wątków. 
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/Speedup/sam_speedup.png}        
+            \caption{Pomiar przyśpieszenia programu, w wersji pierwszej, dla tablicy ${10^{9}}$. }
+        \end{figure}
+        
+        \newpage
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=15cm]{report2/images/Speedup/speedup.png}        
+            \caption{Pomiar przyśpieszenia programu, w wersji drugiej, dla tablicy ${10^{9}}$. }
+        \end{figure}
+        
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=15cm]{report2/images/Speedup/speedup_i7.png}        
+            \caption{Pomiar przyśpieszenia programu, w wersji drugiej, dla tablicy ${10^{9}}$, uruchamianego na procesorze \textit{Intel i7}. }
+        \end{figure}
+    
+    \newpage
+    \subsection{Porównanie implementacji}
+    W celu porównania złożoności obliczeniowej i czasu wykonania obu wersji algorytmu równoległego przygotowałem wykres czasu wykonania i przyśpieszenia dla stałego rozmiaru tablicy wejściowej (wynoszącego $1000 000 000$) w zależności od ilości rdzeni na których algorytm był zrównoleglany. Oba programy uruchamiane były na tym samym środowisku sprzętowym. Zaobserwować możemy dużo niższe czasy wykonania, niezależnie od ilości rdzeni na których program był uruchamiany, programu w wersji w której każdy z wątków czyta jedynie fragment tablicy wejściowej rozdzielając do kubełków. Przyśpieszenia procentowe są co do wartości mniejsze w wersji drugiej, co paradoksalnie może wynikać z mniejsze ilości obliczeń wykonywanych przez algorytm. 
+    
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/Compare/time.png}
+            \caption{Pomiar czasu wykonania programu, w zależności od wersji i ilości rdzeni. }
+        \end{figure}
+    
+    \newpage    
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=17cm]{report2/images/Compare/speedup.png}
+            \caption{Pomiar przyśpieszenia, w zależności od wersji i ilości rdzeni.}
+        \end{figure}
+        
+    \FloatBarrier
+    \newpage
+    \subsection{Kod programu (wersja druga)}
+        \lstinputlisting[language=c]{../lab3/main.c}
+
 \end{document}
