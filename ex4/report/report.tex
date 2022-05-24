@@ -83,7 +83,6 @@ literate=%
       tabsize=2,	                   % sets default tabsize to 2 spaces
       title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
     }
-        % \lstinputlisting[language=bash]{no_qos.txt}
         % \lstinputlisting[language=python]{../ex1/ping_pong.py}
 
         % \begin{center}
@@ -131,21 +130,37 @@ literate=%
     Zauważyć należy, że \textit{m4.large} i \textit{m4.xlarge} oferują identyczne procesory wirtualne, lecz różnią się ich ilością i konfiguracją. 
     
     \section{Implementacja sekwencyjna}
-    Implementację sekwencyjną algorytmu wykonałem w języku \textit{C++}.
+    Implementację sekwencyjną algorytmu wykonałem w języku \textit{C++}. Wczytuje ona dane wyjściowe z jednego pliku, a wyniki zapisuje w drugim. Kod źródłowy załączam poniżej. 
     \lstinputlisting[language=cpp]{../counter.cpp}
     
     \section{Pomiary}
+    Przygotowałem pomiary czasu wykonania algorytmu dla danych wejściowych rozmiaru kolejno \textit{1GB}, \textit{5GB} i \textit{10GB}. Każdy z pomiarów uruchomiłem dziesięciokrotnie dla każdej z konfiguracji sprzętowych opisanych w tabeli powyżej. Wyniki przedstawiłem na wykresach. 
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=15cm]{ex4/report/time_std.png}
+        \caption{Odchylenie standardowe pomiarów}
+    \end{figure}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=15cm]{ex4/report/time_mean.png}
+        \caption{Średni czas wykonania programu w \textit{ms}}
+    \end{figure}
     
-        \begin{center}
-            \includegraphics[width=13cm]{ex4/report/time_std.png}
-        \end{center}
-        \begin{center}
-            \includegraphics[width=13cm]{ex4/report/time_mean.png}
-        \end{center}
-        \begin{center}
-            \includegraphics[width=13cm]{ex4/report/speedup.png}
-        \end{center}
+    \newpage
+    Następnie obliczyłem przyśpieszenie programu dla kolejnych konfiguracji sprzętowych, w oparciu o średni czas wykonania programu. 
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=13cm]{ex4/report/speedup.png}
+        \caption{Przyśpieszenie}
+    \end{figure}
 
     \section{Wnioski}
+    Łatwo zauważyć, że implementacja sekwencyjna paradoksalnie okazała się szybsza od implementacji równoległej dla wszystkich konfiguracji i rozmiarów plików, za wyjątkiem pliku o rozmiarze \textit{5GB}.\\
+    
+    Potencjalnie wynika to z faktu, że wykorzystałem dobrze zoptymalizowaną, kompilowaną implementację sekwencyjną, która naturalnie lepiej radzi sobie z przetwarzaniem dużych rozmiarów danych niż te wykonane w językach interpretowanych. W przypadku plików odpowiednio małych (w moim przypadku \textit{1GB}), ta specyfika jest wystarczająca do otrzymania lepszych wyników. W przypadku plików odpowiednio dużych (w moim przypadku \textit{10GB}), występujące obciążenia komunikacyjne mogą potencjalnie zajmować więcej czasu niż samo wykonanie obliczeń. W przypadku średnim natomiast lepsza skalowalność rozwiązania równoległego pozwoliła na otrzymanie lepszych wyników i krótszych czasów wykonania niż sekwencyjna. Potencjalnie moglibyśmy otrzymać lepsze wyniki, dla największego pliku, mając dostęp do mocniejszych węzłów obliczeniowych, a przez to obniżając narzuty wynikające z komunikacji pomiędzy węzłami. \\
+    
+    Warto zauważyć, że generalnie konfiguracja sprzętowa o mniejszej ilości mocniejszych węzłów obliczeniowych skutkuje niższymi czasami wykonania niż konfiguracje o większej liczbie słabszych węzłów, pomimo że suma rdzeni obliczeniowych jest w obu przypadkach taka sama. Jest to efekt oczekiwany, ze względu na występujące w nich mniejsze obciążenie wynikające z komunikacji pomiędzy węzłami.\\
+    
+    Dla tak zdefiniowanego problemu obliczeniowego nie da się wskazać wartości metryki \textit{COST} na podstawie danych zebranych w ramach zadania. Dla dwóch z rozmiarów plików wejściowych implementacja równoległa osiągnęła gorsze niż sekwencyjna czasy wykonania, co wyklucza wskazanie konkretnej wartości metryki. W przypadku średniego rozmiaru pliku możemy wskazać, że wartość metryki jest mniejsza niż \textit{24} rdzenie, choć jej konkretna wartość nie wynika z wykresu (potencjalnie mniejsza ilość rdzeni pozwoliłaby na przecięcie progu w postaci czasu sekwencyjnego wykonania obliczeń.
 
 \end{document}
