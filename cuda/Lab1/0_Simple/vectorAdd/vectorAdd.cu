@@ -21,10 +21,9 @@
 
 // For the CUDA runtime routines (prefixed with "cuda_")
 #include <cuda_runtime.h>
-
 #include <helper_cuda.h>
-
 #include "gputimer.h"
+#define VERBOSE false
 
 /**
  * CUDA Kernel Device code
@@ -43,7 +42,7 @@ vectorAdd(const float *A, const float *B, float *C, int numElements)
     }
 }
 
-void run_on_gpu(size_t size, int numElements, float *h_A, float *h_B, float *h_C) {
+void run_on_gpu(size_t size, int numElements, float *h_A, float *h_B, float *h_C, int threadsPerBlock, int blocksPerGrid) {
     // Error code to check return values for CUDA calls
     cudaError_t err = cudaSuccess;
 
@@ -79,7 +78,9 @@ void run_on_gpu(size_t size, int numElements, float *h_A, float *h_B, float *h_C
 
     // Copy the host input vectors A and B in host memory to the device input vectors in
     // device memory
-    printf("Copy input data from the host memory to the CUDA device\n");
+    #if (VERBOSE == true)
+        printf("Copy input data from the host memory to the CUDA device\n");
+    #endif
     err = cudaMemcpy(d_A, h_A, size, cudaMemcpyHostToDevice);
 
     if (err != cudaSuccess)
@@ -97,9 +98,9 @@ void run_on_gpu(size_t size, int numElements, float *h_A, float *h_B, float *h_C
     }
 
     // Launch the Vector Add CUDA Kernel
-    int threadsPerBlock = 256;
-    int blocksPerGrid =(numElements + threadsPerBlock - 1) / threadsPerBlock;
-    printf("CUDA kernel launch with %d blocks of %d threads\n", blocksPerGrid, threadsPerBlock);
+    #if (VERBOSE == true)
+        printf("CUDA kernel launch with %d blocks of %d threads\n", blocksPerGrid, threadsPerBlock);
+    #endif
     vectorAdd<<<blocksPerGrid, threadsPerBlock>>>(d_A, d_B, d_C, numElements);
     err = cudaGetLastError();
 
@@ -111,7 +112,9 @@ void run_on_gpu(size_t size, int numElements, float *h_A, float *h_B, float *h_C
 
     // Copy the device result vector in device memory to the host result vector
     // in host memory.
-    printf("Copy output data from the CUDA device to the host memory\n");
+    #if (VERBOSE == true)
+        printf("Copy output data from the CUDA device to the host memory\n");
+    #endif
     err = cudaMemcpy(h_C, d_C, size, cudaMemcpyDeviceToHost);
 
     if (err != cudaSuccess)
@@ -147,7 +150,8 @@ void run_on_gpu(size_t size, int numElements, float *h_A, float *h_B, float *h_C
 }
 
 void run_on_cpu(size_t size, int numElements, float *h_A, float *h_B, float *h_C) {
-
+    for (int i = 0; i < numElements; ++i)
+        h_C[i] = h_A[i] + h_B[i];
 }
 
 
@@ -155,15 +159,14 @@ void run_on_cpu(size_t size, int numElements, float *h_A, float *h_B, float *h_C
  * Host main routine
  */
 int
-main(int argc, char *argv[])
-{
-
+main(int argc, char *argv[]){
     // Print the vector length to be used, and compute its size
-    // int numElements = 50000;
     int numElements = 0;
     if (argc > 1) {
         numElements = atoi(argv[1]);
-        printf("Number of elements: %d\n", numElements);
+        #if (VERBOSE == true)
+            printf("Number of elements: %d\n", numElements);
+        #endif
     } else {
         printf("Please pass number of elements as command line argument.\n");
         exit(EXIT_FAILURE);
@@ -173,11 +176,13 @@ main(int argc, char *argv[])
 
     if (argc > 2 && strcmp(argv[2], "true") == 0){
         cpu_only = true;
-        printf("Running on CPU only!\n");
+        #if (VERBOSE == true)
+            printf("Running on CPU only!\n");
+        #endif
     }
 
     size_t size = numElements * sizeof(float);
-    printf("[Vector addition of %d elements]\n", numElements);
+    // printf("[Vector addition of %d elements]\n", numElements);
 
     // Allocate the host input vector A
     float *h_A = (float *)malloc(size);
@@ -202,35 +207,51 @@ main(int argc, char *argv[])
         h_B[i] = rand()/(float)RAND_MAX;
     }
 
+    int threadsPerBlock = 256;
+    if(argc > 3)
+        threadsPerBlock = atoi(argv[3]);
+
+    int blocksPerGrid = (numElements + threadsPerBlock - 1) / threadsPerBlock;
+    if(argc > 4)
+        blocksPerGrid = atoi(argv[4]);
+
     GpuTimer timer;
     timer.Start();
 
     if(cpu_only) 
         run_on_cpu(size, numElements, h_A, h_B, h_C);
-    else 
-        run_on_gpu(size, numElements, h_A, h_B, h_C);
+    else
+        run_on_gpu(size, numElements, h_A, h_B, h_C, threadsPerBlock, blocksPerGrid);
 
     timer.Stop();
-    printf("Elapsed: %f\n", timer.Elapsed());
+    #if (VERBOSE == true)
+        printf("Elapsed: %f\n", timer.Elapsed());
+    #endif
 
     // Verify that the result vector is correct
     for (int i = 0; i < numElements; ++i)
     {
-        if (fabs(h_A[i] + h_B[i] - h_C[i]) > 1e-5)
-        {
+        if (fabs(h_A[i] + h_B[i] - h_C[i]) > 1e-5) {
             fprintf(stderr, "Result verification failed at element %d!\n", i);
             exit(EXIT_FAILURE);
         }
     }
 
-    printf("Test PASSED\n");
+    #if (VERBOSE == true)
+        printf("Test PASSED\n");
+    #endif
 
     // Free host memory
     free(h_A);
     free(h_B);
     free(h_C);
 
-    printf("Done\n");
+    #if (VERBOSE == true)
+        printf("Done\n");
+    #endif
+
+    // printf("elements, time, type, threads_per_block, blocks_per_grid\n");
+    printf("%d, %f, %s, %d, %d\n", numElements, timer.Elapsed(),(cpu_only ? "cpu" : "gpu"), threadsPerBlock, blocksPerGrid);
     return 0;
 }
 
