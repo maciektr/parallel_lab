@@ -43,45 +43,9 @@ vectorAdd(const float *A, const float *B, float *C, int numElements)
     }
 }
 
-/**
- * Host main routine
- */
-int
-main(void)
-{
-    GpuTimer timer;
-    timer.Start();
-
+void run_on_gpu(size_t size, int numElements, float *h_A, float *h_B, float *h_C) {
     // Error code to check return values for CUDA calls
     cudaError_t err = cudaSuccess;
-
-    // Print the vector length to be used, and compute its size
-    int numElements = 50000;
-    size_t size = numElements * sizeof(float);
-    printf("[Vector addition of %d elements]\n", numElements);
-
-    // Allocate the host input vector A
-    float *h_A = (float *)malloc(size);
-
-    // Allocate the host input vector B
-    float *h_B = (float *)malloc(size);
-
-    // Allocate the host output vector C
-    float *h_C = (float *)malloc(size);
-
-    // Verify that allocations succeeded
-    if (h_A == NULL || h_B == NULL || h_C == NULL)
-    {
-        fprintf(stderr, "Failed to allocate host vectors!\n");
-        exit(EXIT_FAILURE);
-    }
-
-    // Initialize the host input vectors
-    for (int i = 0; i < numElements; ++i)
-    {
-        h_A[i] = rand()/(float)RAND_MAX;
-        h_B[i] = rand()/(float)RAND_MAX;
-    }
 
     // Allocate the device input vector A
     float *d_A = NULL;
@@ -156,18 +120,6 @@ main(void)
         exit(EXIT_FAILURE);
     }
 
-    // Verify that the result vector is correct
-    for (int i = 0; i < numElements; ++i)
-    {
-        if (fabs(h_A[i] + h_B[i] - h_C[i]) > 1e-5)
-        {
-            fprintf(stderr, "Result verification failed at element %d!\n", i);
-            exit(EXIT_FAILURE);
-        }
-    }
-
-    printf("Test PASSED\n");
-
     // Free device global memory
     err = cudaFree(d_A);
 
@@ -192,6 +144,86 @@ main(void)
         fprintf(stderr, "Failed to free device vector C (error code %s)!\n", cudaGetErrorString(err));
         exit(EXIT_FAILURE);
     }
+}
+
+void run_on_cpu(size_t size, int numElements, float *h_A, float *h_B, float *h_C) {
+
+}
+
+
+/**
+ * Host main routine
+ */
+int
+main(int argc, char *argv[])
+{
+
+    // Print the vector length to be used, and compute its size
+    // int numElements = 50000;
+    int numElements = 0;
+    if (argc > 1) {
+        numElements = atoi(argv[1]);
+        printf("Number of elements: %d\n", numElements);
+    } else {
+        printf("Please pass number of elements as command line argument.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    bool cpu_only = false;
+
+    if (argc > 2 && strcmp(argv[2], "true") == 0){
+        cpu_only = true;
+        printf("Running on CPU only!\n");
+    }
+
+    size_t size = numElements * sizeof(float);
+    printf("[Vector addition of %d elements]\n", numElements);
+
+    // Allocate the host input vector A
+    float *h_A = (float *)malloc(size);
+
+    // Allocate the host input vector B
+    float *h_B = (float *)malloc(size);
+
+    // Allocate the host output vector C
+    float *h_C = (float *)malloc(size);
+
+    // Verify that allocations succeeded
+    if (h_A == NULL || h_B == NULL || h_C == NULL)
+    {
+        fprintf(stderr, "Failed to allocate host vectors!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Initialize the host input vectors
+    for (int i = 0; i < numElements; ++i)
+    {
+        h_A[i] = rand()/(float)RAND_MAX;
+        h_B[i] = rand()/(float)RAND_MAX;
+    }
+
+    GpuTimer timer;
+    timer.Start();
+
+    if(cpu_only) 
+        run_on_cpu(size, numElements, h_A, h_B, h_C);
+    else 
+        run_on_gpu(size, numElements, h_A, h_B, h_C);
+
+    timer.Stop();
+    printf("Elapsed: %f\n", timer.Elapsed());
+
+    // Verify that the result vector is correct
+    for (int i = 0; i < numElements; ++i)
+    {
+        if (fabs(h_A[i] + h_B[i] - h_C[i]) > 1e-5)
+        {
+            fprintf(stderr, "Result verification failed at element %d!\n", i);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    printf("Test PASSED\n");
 
     // Free host memory
     free(h_A);
@@ -199,9 +231,6 @@ main(void)
     free(h_C);
 
     printf("Done\n");
-    timer.Stop();
-    printf("Elapsed: %f\n", timer.Elapsed());
-
     return 0;
 }
 
