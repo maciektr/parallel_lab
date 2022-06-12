@@ -92,8 +92,8 @@ literate=%
         W celu przeprowadzenia doświadczenia przygotowałem skrypt w języku Python, którego kod załączam poniżej. Program przesyła komunikaty pomiędzy dwoma procesami OpenMPI, predefiniowaną ilość razy, następnie liczy przepustowość połączenia. W celu pomiaru przepustowości wielokrotnie uruchomiłem program dla różnych rozmiarów wiadomości i różnych sposobów komunikacji - buforowanej i synchronicznej. \\
         Zebrane wyniki pomiarów przedstawiłem w poniższych wykresach.
         \begin{center}
-            \includegraphics[width=13cm]{report1/images/ex1_single_node.png}
-            \includegraphics[width=13cm]{report1/images/ex1_two_nodes.png}
+            \includegraphics[width=13cm]{images/ex1_single_node.png}
+            \includegraphics[width=13cm]{images/ex1_two_nodes.png}
         \end{center}
         W pierwszym przypadku komunikacja odbywała się pomiędzy dwoma procesami uruchamianymi na tym samym węźle klastra, w drugim pomiędzy procesami z różnych węzłów. Zaobserwować możemy, że w przypadku gdy procesy wykonują się na różnych węzłach komunikacja buforowana pozwala uzyskać stabilniejszą przepustowość dla wiadomości o sporym rozmiarze. W przypadku gdy komunikują się procesy z tego samego węzła, komunikacja synchroniczna pozwala na uzyskanie mniejszego narzutu czasowego. \\
         
@@ -124,15 +124,15 @@ literate=%
         \subsection{Zależność czasu od liczby procesorów}
         Skrypt uruchomiłem dla problemów o rosnącej złożoności dla liczby procesorów z zakresu 1 do 12 i zmierzyłem czasy wykonania. Poniższe wykresy przedstawiają zmianę czasu wykonania programu w zależności od liczby procesów. Drugi z wykresów przedstawiony został w skali logarytmicznej.  
         \begin{center}
-            \includegraphics[width=13cm]{report1/images/ex2_vcl_time.png}
-            \includegraphics[width=13cm]{report1/images/ex2_vcl_time_log.png}
+            \includegraphics[width=13cm]{images/ex2_vcl_time.png}
+            \includegraphics[width=13cm]{images/ex2_vcl_time_log.png}
         \end{center}
         
         \subsection{Przyśpieszenie}
         Na podstawie otrzymanych wcześniej pomiarów czasu wykonania programu, przygotowałem wykres przyśpieszenia w zależności od liczby procesorów dla problemów o różnym rozmiarze. Przyśpieszenie obliczyłem jako stosunek czasu wykonania programu bez współbieżności dla otrzymanych wyników dla wyższej liczby procesów. 
         
         \begin{center}
-            \includegraphics[width=13cm]{report1/images/ex2_vcl_speedup.png}
+            \includegraphics[width=13cm]{images/ex2_vcl_speedup.png}
         \end{center}
         
         Zauważyć możemy, że dla większości rozmiarów problemu wykres przyśpieszenia odbiega od teoretycznie idealnego liniowego wzrostu y=x. 
@@ -140,14 +140,14 @@ literate=%
         \subsection{Efektywność}
         Na podstawie otrzymanych w poprzednim kroku przyśpieszeń, obliczyłem wykres efektywności jako stosunek przyśpieszenia do ilości procesów. 
         \begin{center}
-            \includegraphics[width=13cm]{report1/images/ex2_efficiency.png}
+            \includegraphics[width=13cm]{images/ex2_efficiency.png}
         \end{center}
         Wbrew oczekiwaniom, zaobserwować możemy spadek wydajności nawet dla problemów o znaczącym rozmiarze. 
         
         \subsection{Pomiar czasu wykonania części synchronicznej}
         Wykonałem także pomiar części synchronicznej programu - odpowiedzialnej za zbieranie wyników obliczeń. Wyniki przedstawiłem na poniższym wykresie. 
         \begin{center}
-            \includegraphics[width=13cm]{report1/images/ex2_vcl_time_sync.png}
+            \includegraphics[width=13cm]{images/ex2_vcl_time_sync.png}
         \end{center}
         Zauważyć możemy, że czas poświęcony na zbieranie wyników w ogólności nie rośnie wraz ze wzrostem rozmiaru problemu obliczeniowego. Wynika to z faktu, że zbieranym wynikiem jest jedynie liczba punktów wylosowanych wewnątrz koła, dlatego ilość danych nie rośnie wraz ze wzrostem problemu. 
 
