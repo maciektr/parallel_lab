@@ -19,9 +19,14 @@ int main(int argc, char*argv[])
 	int height=0, width =0, scaled_height=0,scaled_width=0;
 	//Define the scaling ratio	
 	float scaling_ratio=0.5;
-	
-	if(argc > 1)
-		sscanf(argv[1],"%f",&scaling_ratio);
+
+	if (argc <= 1) 
+		printf("Please enter img path!\n");
+
+	char *img_name = argv[1];
+
+	if(argc > 2)
+		sscanf(argv[2],"%f",&scaling_ratio);
 
 	int block_size = 32;
 
@@ -34,10 +39,8 @@ int main(int argc, char*argv[])
 	unsigned char*data;
 	unsigned char*scaled_data,*d_scaled_data;
 
-	// char inputStr[1024] = {"aerosmith-double.pgm"};
-	// char outputStr[1024] = {"aerosmith-double-scaled.pgm"};
-	char inputStr[1024] = {"voyager2.pgm"};
-	char outputStr[1024] = {"voyager2-scaled.pgm"};
+	char *inputStr = img_name;
+	char outputStr[1024] = {"scaled.pgm"};
 	cudaError_t returnValue;
 
 	//Create a channel Description to be used while linking to the tecture
@@ -117,8 +120,8 @@ int main(int argc, char*argv[])
     timer.Stop();
 	float timer_result = timer.Elapsed();
 
-    // printf("height;width;scaled_height;scaled_width;time;block_size\n");
-    printf("%d, %d, %d, %d, %f, %d\n", height, width, scaled_height, scaled_width, timer_result, block_size);
+    // printf("image;scale;block_size;time\n");
+    printf("%s;%f;%d;%f\n", img_name, scaling_ratio, block_size, timer_result);
 
 	return 0;
 }
