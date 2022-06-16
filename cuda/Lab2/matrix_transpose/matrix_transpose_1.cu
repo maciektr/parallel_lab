@@ -69,7 +69,7 @@ void print_output(int *a, int *b, int N) {
 }
 
 int main(int argc, char *argv[]) {
-	// argv = N ; Type ; Grid size ; Block size
+	// argv = N ; Type ; Block size ; Grid size
 	int N =0;
 
     if (argc > 1) {
@@ -85,13 +85,12 @@ int main(int argc, char *argv[]) {
     }
 
 	int the_block_size = BLOCK_SIZE;
-	int the_grid_size = N / BLOCK_SIZE;
-
 	if (argc > 3) 
-        the_grid_size = atoi(argv[4]);
-
-	if (argc > 4) 
         the_block_size = atoi(argv[3]);
+
+	int the_grid_size = N / the_block_size;
+	if (argc > 4) 
+        the_grid_size = atoi(argv[4]);
 
 	int *a, *b;
     int *d_a, *d_b; // device copies of a, b, c
@@ -137,7 +136,7 @@ int main(int argc, char *argv[]) {
 	free(b);
 
     // printf("size;time;type;grid_size;block_size\n");
-    printf("%d, %f, %s, %d, %d\n", N, timer_result, (shared ? "shared" : "naive"), the_grid_size, the_block_size);
+    printf("%d;%f;%s;%d;%d\n", N, timer_result, (shared ? "shared" : "naive"), the_grid_size, the_block_size);
 
 	return 0;
 }
