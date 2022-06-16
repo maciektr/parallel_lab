@@ -1,0 +1,8 @@
+unsigned int size = 1 << 24;
+
+➜  2 Warp Divergence git:(main) ✗ ./reduction_interleaving.out
+Time= 99.011 msec, bandwidth= 0.677791 GB/s
+host: 0.996007, device -6023280774831514058752.000000
+➜  2 Warp Divergence git:(main) ✗ ./reduction_sequential.out
+Time= 101.595 msec, bandwidth= 0.660554 GB/s
+host: 0.996007, device -26537.453125

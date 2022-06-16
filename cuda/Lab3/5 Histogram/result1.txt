@@ -1,0 +1,11 @@
+type,bin_count,time
+naive,10,552.884
+naive,50,528.329
+naive,100,535.716
+naive,500,542.931
+naive,1000,516.444
+simple,10,498.956
+simple,50,507.830
+simple,100,544.761
+simple,500,516.827
+simple,1000,506.393

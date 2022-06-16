@@ -8,7 +8,7 @@
 #include "reduction.h"
 
 void run_benchmark(void (*reduce)(float *, float *, int, int),
-                   float *d_outPtr, float *d_inPtr, int size);
+                   float *d_outPtr, float *d_inPtr, int size, int pow);
 void init_input(float *data, int size);
 float get_cpu_result(float *data, int size);
 
@@ -20,7 +20,8 @@ int main(int argc, char *argv[])
     float *h_inPtr;
     float *d_inPtr, *d_outPtr;
 
-    unsigned int size = 1 << 24;
+    int pow = argc > 1  ? atoi(argv[1]) : 24;
+    unsigned int size = 1 << pow;
 
     float result_host, result_gpu;
 
@@ -39,14 +40,14 @@ int main(int argc, char *argv[])
     cudaMemcpy(d_inPtr, h_inPtr, size * sizeof(float), cudaMemcpyHostToDevice);
 
     // Get reduction result from GPU
-    run_benchmark(global_reduction, d_outPtr, d_inPtr, size);
+    run_benchmark(global_reduction, d_outPtr, d_inPtr, size, pow);
     cudaMemcpy(&result_gpu, &d_outPtr[0], sizeof(float), cudaMemcpyDeviceToHost);
 
     // Get reduction result from GPU
 
     // Get all sum from CPU
     result_host = get_cpu_result(h_inPtr, size);
-    printf("host: %f, device %f\n", result_host, result_gpu);
+    // printf("host: %f, device %f\n", result_host, result_gpu);
 
     // Terminates memory
     cudaFree(d_outPtr);
@@ -57,7 +58,7 @@ int main(int argc, char *argv[])
 }
 
 void run_benchmark(void (*reduce)(float *, float *, int, int),
-                   float *d_outPtr, float *d_inPtr, int size)
+                   float *d_outPtr, float *d_inPtr, int size, int pow)
 {
     int num_threads = 256;
     int test_iter = 100;
@@ -87,7 +88,8 @@ void run_benchmark(void (*reduce)(float *, float *, int, int),
     // Compute and print the performance
     float elapsed_time_msed = sdkGetTimerValue(&timer) / (float)test_iter;
     float bandwidth = size * sizeof(float) / elapsed_time_msed / 1e6;
-    printf("Time= %.3f msec, bandwidth= %f GB/s\n", elapsed_time_msed, bandwidth);
+    // printf("Time= %.3f msec, bandwidth= %f GB/s\n", elapsed_time_msed, bandwidth);
+    printf("global,%d,%.3f,%f\n",pow, elapsed_time_msed, bandwidth);
 
     sdkDeleteTimer(&timer);
 }

@@ -1,0 +1,8 @@
+unsigned int size = 1 << 24;
+
+➜  3 Loop Unrolling git:(main) ✗ ./reduction_cg.out
+Time= 98.130 msec, bandwidth= 0.683878 GB/s
+host: 0.996007, device 401575530421491628769280.000000
+➜  3 Loop Unrolling git:(main) ✗ ./reduction_wp.out
+Time= 97.432 msec, bandwidth= 0.688778 GB/s
+host: 0.996007, device 2.022638

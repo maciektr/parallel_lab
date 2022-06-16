@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <cuda_runtime.h>
+#include <helper_timer.h>
 
 int log2(int i)
 {
@@ -38,6 +39,7 @@ __global__ void simple_histo(int *d_bins, const int *d_in, const int BIN_COUNT)
 
 int main(int argc, char **argv)
 {
+    // Impl type 0 - 1; 
     int deviceCount;
     cudaGetDeviceCount(&deviceCount);
     if (deviceCount == 0) {
@@ -50,16 +52,20 @@ int main(int argc, char **argv)
     cudaDeviceProp devProps;
     if (cudaGetDeviceProperties(&devProps, dev) == 0)
     {
-        printf("Using device %d:\n", dev);
-        printf("%s; global mem: %dB; compute v%d.%d; clock: %d kHz\n",
-               devProps.name, (int)devProps.totalGlobalMem, 
-               (int)devProps.major, (int)devProps.minor, 
-               (int)devProps.clockRate);
+        // printf("Using device %d:\n", dev);
+        // printf("%s; global mem: %dB; compute v%d.%d; clock: %d kHz\n",
+        //        devProps.name, (int)devProps.totalGlobalMem, 
+        //        (int)devProps.major, (int)devProps.minor, 
+        //        (int)devProps.clockRate);
     }
 
-    const int ARRAY_SIZE = 65536;
+    const int ARRAY_SIZE = 2000000;
     const int ARRAY_BYTES = ARRAY_SIZE * sizeof(int);
-    const int BIN_COUNT = 16;
+    int BIN_COUNT = 16;
+
+    if(argc > 2)
+        BIN_COUNT = atoi(argv[2]);
+
     const int BIN_BYTES = BIN_COUNT * sizeof(int);
 
     // generate the input array on the host
@@ -76,6 +82,11 @@ int main(int argc, char **argv)
     int * d_in;
     int * d_bins;
 
+    // initialize timer
+    StopWatchInterface *timer;
+    sdkCreateTimer(&timer);
+    sdkStartTimer(&timer);
+
     // allocate GPU memory
     cudaMalloc((void **) &d_in, ARRAY_BYTES);
     cudaMalloc((void **) &d_bins, BIN_BYTES);
@@ -85,18 +96,18 @@ int main(int argc, char **argv)
     cudaMemcpy(d_bins, h_bins, BIN_BYTES, cudaMemcpyHostToDevice); 
 
     int whichKernel = 0;
-    if (argc == 2) {
+    if (argc > 1) {
         whichKernel = atoi(argv[1]);
     }
         
     // launch the kernel
     switch(whichKernel) {
     case 0:
-        printf("Running naive histo\n");
+        // printf("Running naive histo\n");
         naive_histo<<<ARRAY_SIZE / 64, 64>>>(d_bins, d_in, BIN_COUNT);
         break;
     case 1:
-        printf("Running simple histo\n");
+        // printf("Running simple histo\n");
         simple_histo<<<ARRAY_SIZE / 64, 64>>>(d_bins, d_in, BIN_COUNT);
         break;
     default:
@@ -107,13 +118,21 @@ int main(int argc, char **argv)
     // copy back the sum from GPU
     cudaMemcpy(h_bins, d_bins, BIN_BYTES, cudaMemcpyDeviceToHost);
 
-    for(int i = 0; i < BIN_COUNT; i++) {
-        printf("bin %d: count %d\n", i, h_bins[i]);
-    }
+    // for(int i = 0; i < BIN_COUNT; i++) {
+    //     printf("bin %d: count %d\n", i, h_bins[i]);
+    // }
 
     // free GPU memory allocation
     cudaFree(d_in);
     cudaFree(d_bins);
+
+        // getting elapsed time
+    cudaDeviceSynchronize();
+    sdkStopTimer(&timer);
+    float elapsed_time_msed = sdkGetTimerValue(&timer);
+
+    printf("%s,%d,%.3f\n", (whichKernel == 0 ? "naive" : "simple"), BIN_COUNT,elapsed_time_msed);
+
         
     return 0;
 }

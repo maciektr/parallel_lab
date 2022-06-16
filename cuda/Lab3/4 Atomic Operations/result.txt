@@ -1,0 +1,11 @@
+unsigned int size = 1 << 24;
+
+➜  4 Atomic Operations git:(main) ✗ ./reduction.out
+Time= 48.038 msec, bandwidth= 1.397004 GB/s
+host: 0.996007, device 0.000390
+➜  4 Atomic Operations git:(main) ✗ ./reduction_blk.out
+Time= 72.145 msec, bandwidth= 0.930194 GB/s
+host: 0.996007, device -721471492600102912.000000
+➜  4 Atomic Operations git:(main) ✗ ./reduction_wrp.out
+Time= 72.421 msec, bandwidth= 0.926646 GB/s
+host: 0.996007, device 329934850815310086830908413837312.000000
